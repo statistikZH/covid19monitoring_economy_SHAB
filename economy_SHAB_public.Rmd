@@ -1,0 +1,101 @@
+---
+title: "economy_SHAB_public"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+    theme: lumen
+    highlight: tango
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 1800px;
+  margin-left: 0;
+  margin-right: auto;
+}
+blockquote {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    font-size: 14px;
+    border-left: 5px solid #eee;
+}
+
+h1.title {
+  font-size: 38px;
+  color: #000000;
+  }
+  
+h1 { /* Header 1 */
+  font-size: 28px;
+  color: #0033cc;
+}
+h2 { /* Header 2 */
+    font-size: 28px;
+	color: #0099ff
+}
+h3 { /* Header 3 */
+    font-size: 14px;
+	color: #6600cc
+}
+</style>
+
+
+
+
+```{r Vorbereitungen,echo = F,collapse=TRUE, warning=FALSE,  message=FALSE}
+rm(list=ls())
+options(stringsAsFactors = F)
+
+### Packages 
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(plotly)
+
+```
+
+```{r Daten laden und aufbreiten}
+rolling_mean_7 <- tibbletime::rollify(mean, window = 7)
+lastmon <- function(x) 7 * floor(as.numeric(x-1+4)/7) + as.Date(1-4, origin="1970-01-01")
+
+dba <- read.csv('Economy_SHAB.csv')
+
+dba$date <- as.Date(dba$date)
+dba$monday <- lastmon(dba$date)
+dba$week <- lubridate::isoweek(dba$date)
+
+pldf <- dba%>%
+  mutate(year = substring(date,1,4))%>%
+  mutate(week = lubridate::isoweek(date))%>%
+  group_by(year,week,monday,location)%>%
+  summarise(value = sum(value))%>%
+  ungroup()%>%
+  group_by(location)%>%
+  mutate(zvalue = (value-mean(value))/sd(value))%>%
+  filter(year>= 2019)
+
+
+p_cant <- ggplot(pldf,aes(week,zvalue,col=year)) +
+  geom_path()+
+  facet_wrap(~location)
+$
+    scale_color_manual(values = c('Prä-Lockdown'='#6CBD72',
+                                'Übergangsphase (12.-16. März)'='#EDDD79',
+                                'Lockdown'='#F3A5A7',
+                                'Tage vor Ostern'='#E0D6E6',
+                                'Feier- und Festtage'='#3FA5A5',
+                                'Erste Lockdown-Lockerung'= '#407B9F',
+                                'Zweite Lockdown-Lockerung'= '#857091')) 
+
+
+
+```
