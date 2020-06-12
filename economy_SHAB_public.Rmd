@@ -254,7 +254,7 @@ pldf_cant <- dba%>%
 
 p_cant <- ggplot(pldf_cant,aes(day_date,rollmean_zvalue)) +
 geom_path(aes(col=year, group=year,
-              text=sprintf("Datum: %s<br>5-Tage-Mittelwert: %s<br>Standardisierter Mittelwert: %s<br>Tageswert: %s", day_date,rollmean,rollmean_zvalue,value)))+
+              text=sprintf("Tag: %s<br>5-Tage-Mittelwert: %s<br>Standardisierter Mittelwert: %s<br>Tageswert: %s", day_date,rollmean,rollmean_zvalue,value)))+
   scale_color_manual(values = c('2019'='#EDDD79',
                                     '2020'='#F3A5A7')) +
   scale_x_date(labels = date_format("%d.%m"), breaks = as.Date(c('01.03','01.06','01.09','01.12'),format="%d.%m"))+
