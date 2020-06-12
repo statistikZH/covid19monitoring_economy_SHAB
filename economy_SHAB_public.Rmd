@@ -220,7 +220,7 @@ geom_path(aes(col=year, group=year,
 
 
 
-gg_cant_cum <- ggplotly(p_cant_cum, tooltip="text", height =  2000 ) %>%  
+gg_cant_cum <- ggplotly(p_cant_cum, tooltip="text", height =  1000 ) %>%  
   plotly::config(displayModeBar = F)%>%
    layout(legend = list(orientation = "h", y=-0.05),
           margin = list(l = 75))
