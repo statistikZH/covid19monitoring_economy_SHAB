@@ -48,7 +48,7 @@ h3 { /* Header 3 */
 }
 </style>
 
-
+![](logo/KtZuerichLogo.png)
 
 
 ```{r Vorbereitungen,echo = F,collapse=TRUE, warning=FALSE,  message=FALSE}
@@ -72,6 +72,29 @@ dba <- read.csv('Economy_SHAB.csv')
 dba$date <- as.Date(dba$date)
 dba$monday <- lastmon(dba$date)
 dba$week <- lubridate::isoweek(dba$date)
+```
+
+```{r Plot Schweiz}
+pldf <- dba%>%
+  group_by(date)%>%
+  summarise(chsum = sum(value))%>%
+  ungroup()%>%
+  mutate(rollmean = rolling_mean_7(chsum))%>%
+  mutate(year = substring(date,1,4))%>%
+  mutate(week = lubridate::isoweek(date))%>%
+  mutate(monday = lastmon(date))%>%
+  filter(year>= 2019)
+
+p_cant <- ggplot(pldf,aes(week,zvalue,col=year)) +
+  geom_path()+
+  facet_wrap(~location)
+
+
+
+```
+
+
+```{r kldjfl}
 
 pldf <- dba%>%
   mutate(year = substring(date,1,4))%>%
@@ -87,15 +110,11 @@ pldf <- dba%>%
 p_cant <- ggplot(pldf,aes(week,zvalue,col=year)) +
   geom_path()+
   facet_wrap(~location)
-$
-    scale_color_manual(values = c('Prä-Lockdown'='#6CBD72',
-                                'Übergangsphase (12.-16. März)'='#EDDD79',
-                                'Lockdown'='#F3A5A7',
-                                'Tage vor Ostern'='#E0D6E6',
-                                'Feier- und Festtage'='#3FA5A5',
-                                'Erste Lockdown-Lockerung'= '#407B9F',
-                                'Zweite Lockdown-Lockerung'= '#857091')) 
+
+p_cant
+
 
 
 
 ```
+
