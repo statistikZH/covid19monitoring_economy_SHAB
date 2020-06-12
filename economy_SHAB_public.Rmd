@@ -110,19 +110,19 @@ p_ch_cum <- ggplot(pldf_cum,aes(day_date,cum_chsum,col=year,group=year)) +
       scale_color_manual(values = c('2019'='#EDDD79',
                                     '2020'='#F3A5A7')) +
   scale_x_date(labels = date_format("%d.%m"))+
- labs(y = 'Kumulierte Tageswerte<br><br>', 
+ labs(y = 'Kumulierte Tageswerte<br><br> ', 
      x = ' <br>Datum', 
      title = "", 
      subtitle = "",
      caption = paste0('Daten: SHAB via Moneyhouse API / Gesellschaftsmonitoring COVID-19 STAT'))+
   theme_bw()+
-  theme(legend.position = 'bottom',
+  theme(
         legend.title = element_blank())
       
       
-gg_cum <- ggplotly(p_ch_cum, tooltip="text") %>%  
+gg_cum <- ggplotly(p_ch_cum, tooltip="text",height=400) %>%  
   plotly::config(displayModeBar = F)%>%
-   layout(legend = list(orientation = "h",y = -0.2),
+   layout(
           margin = list(l = 75),
           xaxis=list(fixedrange=TRUE),
           yaxis=list(fixedrange=TRUE),
@@ -163,13 +163,13 @@ p_ch <- ggplot(pldf,aes(day_date,rollmean,col=year,group=year)) +
      subtitle = "",
      caption = paste0('Daten: SHAB via Moneyhouse API / Gesellschaftsmonitoring COVID-19 STAT'))+
   theme_bw()+
-  theme(legend.position = 'bottom',
+  theme(
         legend.title = element_blank())
       
       
 gg <- ggplotly(p_ch, tooltip="text") %>%  
   plotly::config(displayModeBar = F)%>%
-   layout(legend = list(orientation = "h",y = -0.2),
+   layout(
           margin = list(l = 75),
           xaxis=list(fixedrange=TRUE),
           yaxis=list(fixedrange=TRUE),
@@ -215,22 +215,22 @@ geom_path(aes(col=year, group=year,
      subtitle = "",
      caption = paste0('Daten: SHAB via Moneyhouse API / Gesellschaftsmonitoring COVID-19 STAT'))+
   theme_bw()+
-  theme(legend.position = 'bottom',
+  theme(
         legend.title = element_blank())
 
 
 
 gg_cant_cum <- ggplotly(p_cant_cum, tooltip="text", height =  1000 ) %>%  
   plotly::config(displayModeBar = F)%>%
-   layout(legend = list(orientation = "h", y=-0.05),
-          margin = list(l = 75))
+   layout(
+          margin = list(l = 75,b=75))
 
 gg_cant_cum <- plotly_build(gg_cant_cum)
 
 gg_cant_cum
 ```
 
-## Rollender Mittelwerte
+## Rollende Mittelwerte
 Die Grafik ermöglicht einen Vergleich der Entwicklungen in den Kantonen in den Jahren 2019 und 2020. Dargestellt sind standardisierten rollenden Mittelwerte über die letzten fünf Werktage.  
 
 ```{r Plot Kantone,echo = F,collapse=TRUE, warning=FALSE,  message=FALSE}
@@ -265,15 +265,15 @@ geom_path(aes(col=year, group=year,
      subtitle = "",
      caption = paste0('Daten: SHAB via Moneyhouse API / Gesellschaftsmonitoring COVID-19 STAT'))+
   theme_bw()+
-  theme(legend.position = 'bottom',
+  theme(
         legend.title = element_blank())
 
 
 
 gg_cant <- ggplotly(p_cant, tooltip="text", height =  2000 ) %>%  
   plotly::config(displayModeBar = F)%>%
-   layout(legend = list(orientation = "h", y=-0.05),
-          margin = list(l = 75))
+   layout(
+          margin = list(l = 75,b=75))
 
 gg <- plotly_build(gg_cant)
 
