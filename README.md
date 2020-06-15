@@ -8,7 +8,7 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 <br><br>
 
 ## Methodisches
-Es wird jeweils nur die erste Eröffnung eines Konkursverfahrens seit 2015 (Konkurs oder organisatorischer Mangel) gegen eine Firma erfasst. Dies ist dem Erhebungsverfahren geschuldet.
+Es wird jeweils nur die erste Eröffnung eines Konkursverfahrens seit 2015 gegen eine Firma erfasst. Dies ist dem Erhebungsverfahren geschuldet.
 
 ## Variablen 
 <strong>konk_eroeff</strong> = Anzahl erstmaliger Konkurseröffnungsverfahren gegen Firmen im jeweiligen Kanton (exkl. Verfahren aufgrund organisatorischer Mängel)

@@ -106,7 +106,7 @@ pldf_cum <- dba%>%
   filter(year>= 2019)
 
 p_ch_cum <- ggplot(pldf_cum,aes(day_date,cum_chsum,col=year,group=year)) +
-  geom_path(aes(text=sprintf("Tag: %s<br>Kumulierte Tageswerte: %s<br>Tageswert: %s", day_date,cum_chsum,chsum)))+
+  geom_path(aes(text=sprintf("Tag: %s<br>Kumulierte Tageswerte: %s<br>Tageswert: %s", date,cum_chsum,chsum)))+
       scale_color_manual(values = c('2019'='#EDDD79',
                                     '2020'='#F3A5A7')) +
   scale_x_date(labels = date_format("%d.%m"))+
@@ -153,7 +153,7 @@ pldf <- dba%>%
   filter(year>= 2019)
 
 p_ch <- ggplot(pldf,aes(day_date,rollmean,col=year,group=year)) +
-  geom_path(aes(text=sprintf("Tag: %s<br>5-Tage-Mittelwert: %s<br>Tageswert: %s", day_date,rollmean,chsum)))+
+  geom_path(aes(text=sprintf("Tag: %s<br>5-Tage-Mittelwert: %s<br>Tageswert: %s", date,rollmean,chsum)))+
       scale_color_manual(values = c('2019'='#EDDD79',
                                     '2020'='#F3A5A7')) +
   scale_x_date(labels = date_format("%d.%m"))+
@@ -204,7 +204,7 @@ pldf_cant_cum <- dba%>%
 
 p_cant_cum <- ggplot(pldf_cant_cum,aes(day_date,cum_cant)) +
 geom_path(aes(col=year, group=year,
-              text=sprintf("Datum: %s<br>Kumulierter Wert: %s<br>Tageswert: %s", day_date,cum_cant,value)))+
+              text=sprintf("Datum: %s<br>Kumulierter Wert: %s<br>Tageswert: %s", date,cum_cant,value)))+
   scale_color_manual(values = c('2019'='#EDDD79',
                                     '2020'='#F3A5A7')) +
   scale_x_date(labels = date_format("%d.%m"), breaks = as.Date(c('01.03','01.06','01.09','01.12'),format="%d.%m"))+
@@ -254,7 +254,7 @@ pldf_cant <- dba%>%
 
 p_cant <- ggplot(pldf_cant,aes(day_date,rollmean_zvalue)) +
 geom_path(aes(col=year, group=year,
-              text=sprintf("Tag: %s<br>5-Tage-Mittelwert: %s<br>Standardisierter Mittelwert: %s<br>Tageswert: %s", day_date,rollmean,rollmean_zvalue,value)))+
+              text=sprintf("Tag: %s<br>5-Tage-Mittelwert: %s<br>Standardisierter Mittelwert: %s<br>Tageswert: %s", date,rollmean,rollmean_zvalue,value)))+
   scale_color_manual(values = c('2019'='#EDDD79',
                                     '2020'='#F3A5A7')) +
   scale_x_date(labels = date_format("%d.%m"), breaks = as.Date(c('01.03','01.06','01.09','01.12'),format="%d.%m"))+
