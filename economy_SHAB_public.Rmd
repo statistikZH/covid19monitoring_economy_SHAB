@@ -68,6 +68,7 @@ library(dplyr)
 library(ggplot2)
 library(scales)
 library(plotly)
+library(bsselectR)
 
 ```
 
@@ -218,8 +219,6 @@ geom_path(aes(col=year, group=year,
   theme(
         legend.title = element_blank())
 
-
-
 gg_cant_cum <- ggplotly(p_cant_cum, tooltip="text", height =  1000 ) %>%  
   plotly::config(displayModeBar = F)%>%
    layout(
@@ -229,6 +228,7 @@ gg_cant_cum <- plotly_build(gg_cant_cum)
 
 gg_cant_cum
 ```
+
 
 ## Rollende Mittelwerte
 Die Grafik ermöglicht einen Vergleich der Entwicklungen in den Kantonen in den Jahren 2019 und 2020. Dargestellt sind standardisierten rollenden Mittelwerte über die letzten fünf Werktage.  
