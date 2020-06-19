@@ -229,6 +229,7 @@ gg_cant_cum <- plotly_build(gg_cant_cum)
 gg_cant_cum
 ```
 
+ <iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials"></iframe> 
 
 ## Rollende Mittelwerte
 Die Grafik ermöglicht einen Vergleich der Entwicklungen in den Kantonen in den Jahren 2019 und 2020. Dargestellt sind standardisierten rollenden Mittelwerte über die letzten fünf Werktage.  
