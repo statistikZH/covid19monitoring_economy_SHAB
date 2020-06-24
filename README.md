@@ -11,6 +11,9 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 * Es wird jeweils nur die erste Eröffnung eines Konkursverfahrens seit 2015 gegen eine Firma erfasst. Dies ist dem Erhebungsverfahren geschuldet.
 * Es kann zu kleinen rückwirkenden Anpassungen der Daten kommen. Etwa wenn es zu nachträglichen Erfassungen in der Datenquelle kommt.
 
+## Visualisierung
+Eine Visualisierung und weitere Informationen finden sich [hier](https://statistik.zh.ch/internet/justiz_inneres/statistik/de/aktuell/mitteilungen/2020/covid_wirtschaft_shab.html)
+
 ## Variablen 
 <strong>konk_eroeff</strong> = Anzahl erstmaliger Konkurseröffnungsverfahren gegen Firmen im jeweiligen Kanton (exkl. Verfahren aufgrund organisatorischer Mängel)
 
