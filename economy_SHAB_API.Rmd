@@ -65,8 +65,8 @@ source("mhouse_connect.r") #-> File mit Zugangsdaten. Kann nicht öffentlich gem
 ##################
 konk_prev <- readRDS('...') #-> Dieser Datensatz kann nicht öffentlich gemacht werden. Er enthält die einzelnen Meldungen.
 
-startdate <- max(as.Date(konk_prev$date))+1
-enddate <- Sys.Date()-1
+startdate <- max(as.Date(konk_prev$date))
+enddate <- Sys.Date()
 
 categories <- c(2,3) #See data frame publikat, Categorie 31 gehört wohl zu den Konkursämtern
 cats <- paste0('&category=',categories, collapse='')
