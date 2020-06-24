@@ -229,7 +229,7 @@ gg_cant_cum <- plotly_build(gg_cant_cum)
 gg_cant_cum
 ```
 
- <iframe src="http://www.web.statistik.zh.ch/cms_vis/economy_shab_vis/" height=600 width=100%></iframe> 
+ <iframe src="http://www.web.statistik.zh.ch/cms_vis/economy_shab_vis/" height=600></iframe> 
 
 ## Rollende Mittelwerte
 Die Grafik ermöglicht einen Vergleich der Entwicklungen in den Kantonen in den Jahren 2019 und 2020. Dargestellt sind standardisierten rollenden Mittelwerte über die letzten fünf Werktage.  
