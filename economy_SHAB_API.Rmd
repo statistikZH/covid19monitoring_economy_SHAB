@@ -99,10 +99,6 @@ entries <- entries[!entries$uid %in% konk_prev$uid,]
 konk <- entries %>%
   filter(map_lgl(categories, ~'3' %in% .))
 
-#Mehrfaches Vorkommen von Firmen
-#ee<-data.frame(table(konk$companyId))
-#konk<-base::merge(konk, ee, by.x="companyId", by.y="Var1", all.x=T)
-#table(konk$Freq)
 
 #absteigend sortieren
 konk<- konk[order(konk$date, decreasing=F),]
@@ -186,13 +182,6 @@ df_cant <- konk_prev %>%
   mutate(variable_short = ifelse(orgmangel==0,'konk_eroeff','mangel_eroeff'),
          variable_long = ifelse(orgmangel==0,'Eröffnung erstmaliger Konkursverfahren','Erstmalige Eröffnungen eines Konkursverfahrens wegen organisatorischer Mängel'))
 
-df_ch <- konk_prev %>%
-  filter(date>=as.Date('2017-01-01'))%>%
-  group_by(date,orgmangel)%>%
-  summarise(value = n())%>%
-  mutate(location = 'CH')%>%
-  mutate(variable_short = ifelse(orgmangel==0,'konk_eroeff','mangel_eroeff'),
-         variable_long = ifelse(orgmangel==0,'Anzahl Eröffnungen erstmaliger Konkursverfahren (exkl. Verfahren nach Art. 731b OR)','Erstmalige Eröffnungen eines Konkursverfahrens wegen organisatorischer Mängel'))
 
 Economy_SHAB <- df_cant%>%
   filter(variable_short == 'konk_eroeff')%>%
