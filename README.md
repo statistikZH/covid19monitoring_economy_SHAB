@@ -12,7 +12,7 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 * Es kann zu kleinen rückwirkenden Anpassungen der Daten kommen. Etwa wenn es zu nachträglichen Erfassungen in der Datenquelle kommt.
 
 ## Visualisierung
-Eine Visualisierung und weitere Informationen finden sich [hier](https://statistik.zh.ch/internet/justiz_inneres/statistik/de/aktuell/mitteilungen/2020/covid_wirtschaft_shab.html)
+Eine Visualisierung und weitere Informationen finden sich [hier](https://www.zh.ch/de/news-uebersicht/mitteilungen/2020/politik-staat/statistik/zeitnahe-daten-zum-konkursgeschehen.html)
 
 ## Variablen 
 <strong>konk_eroeff</strong> = Anzahl erstmaliger Konkurseröffnungsverfahren gegen Firmen im jeweiligen Kanton (exkl. Verfahren aufgrund organisatorischer Mängel)
