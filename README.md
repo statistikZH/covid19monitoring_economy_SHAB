@@ -9,7 +9,7 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 ## Datensätze
 <strong>Economy_SHAB.csv </strong>: Konkurseröffnungen pro Kanton. Dies ist der Datensatz für das Gesellschaftsmonitoring-COVID19 des Statistischen Amtes.
 
-<strong>Economy_SHAB_branchen.csv</strong>: Konkurseröffnungen pro Kanton und NOGA-Hautpabschnitt. Dies ist der Ausgangsdatensatz für die Visualisierung [hier] (https://www.zh.ch/de/news-uebersicht/mitteilungen/2020/politik-staat/statistik/zeitnahe-daten-zum-konkursgeschehen.html).
+<strong>Economy_SHAB_branchen.csv</strong>: Konkurseröffnungen pro Kanton und NOGA-Hautpabschnitt. Dies ist der Ausgangsdatensatz für die Visualisierung [hier](https://www.zh.ch/de/news-uebersicht/mitteilungen/2020/politik-staat/statistik/zeitnahe-daten-zum-konkursgeschehen.html).
 
 ## Methodisches
 * Am 18. November 2020 werden die SHAB-Meldungen über eine neue Version der Moneyhouse-API (V2)  abgerufen. Um eine konsistente Datenreihe zu haben, wurden die Meldungen auch rückwirkend über die neue API bezogen. Weil eine identische Abfrage nicht möglich war, kommt es zu kleinen Abweichungen.
