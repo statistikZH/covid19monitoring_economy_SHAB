@@ -8,6 +8,7 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 <br><br>
 
 ## Methodisches
+* Am 18. Oktober 2020 werden die SHAB-Meldungen über eine neue Version der Moneyhouse-API (V2)  abgerufen. Um eine konsistente Datenreihe zu haben, wurden auch Melduen auch rückwirkend über die neue API bezogen. Weil eine identische Abfrage nicht möglich war, kommt es zu kleinen Abweichungen.
 * Es wird jeweils nur die erste Eröffnung eines Konkursverfahrens seit 2015 gegen eine Firma erfasst. Dies ist dem Erhebungsverfahren geschuldet.
 * Es kann zu kleinen rückwirkenden Anpassungen der Daten kommen. Etwa wenn es zu nachträglichen Erfassungen in der Datenquelle kommt.
 

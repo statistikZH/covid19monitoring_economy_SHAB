@@ -1,0 +1,257 @@
+---
+title: "economy_SHAB"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+rm(list=ls())
+knitr::opts_chunk$set(echo = TRUE)
+
+library('httr')
+library('jsonlite')
+library('dplyr')
+library('tidyverse')
+library('plotly')
+
+# Verbindungsinfos
+source("mhouse_connect.r") #-> File mit Zugangsdaten. Kann nicht öffentlich gemacht werden
+
+```
+
+```{r Erstellen des Anfangsdatensatzes,echo=FALSE}
+##1. Jahr
+#startdate <- '2015-01-01'
+#enddate <- '2015-03-31'
+#categories <- c(2,3) #See data frame publikat, Categorie 31 gehört zu den Konkursämtern
+#cats <- paste0('&category%5B%5D=',categories, collapse='')
+#call1 <- paste0(base_v2,"/publication?from=",startdate,'&to=',enddate,cats,'&inclusive=true&limit=50000')
+#entriescall <- GET(call1,
+#                   add_headers(`user-key`=user_key))
+#entries <- content(entriescall,'text')
+#entries <- jsonlite::fromJSON(entries, flatten = TRUE)
+#entries <- entries$source
+#entries <- as.data.frame(entries$metaInfo)
+#
+##2. Die weiteren Jahre
+#jahre <- data.frame(start = c("2015-04-01","2015-07-01","2015-10-01",sort(paste0(sort(rep(c(2016:2019),4)),"-",c("01-01","04-01","07-01","10-01"))),"2020-01-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01"),
+                    #ende = c("2015-06-30","2015-09-30","2015-12-31",sort(paste0(sort(rep(c(2016:2019),4)),"-",c("03-31","06-30","09-30","12-31"))),"2020-03-31","2020-04-30","2020-05-31","2020-06-30","2020-09-30"))
+
+
+
+
+#for (i in c(1:dim(jahre)[1])){
+#  
+#startdate <- jahre$start[i]
+#enddate <- jahre$ende[i]
+#call1 <- paste0(base_v2,"/publication?from=",startdate,'&to=',enddate,cats,'&inclusive=true&limit=50000')
+#entriescall <- GET(call1,
+#add_headers(`user-key`=user_key))
+#entries_temp <- content(entriescall,'text')
+#entries_temp <- jsonlite::fromJSON(entries_temp, flatten = TRUE)
+#entries_temp <- entries_temp$source
+##entries_temp <- as.data.frame(entries_temp$metaInfo)
+#entries <- rbind(entries,entries_temp)
+#}
+#rm(entries_temp)
+#
+#Firmen mit Organisationsmängel oder mangelndem Domizil rausfiltern 
+#entries$orgmangel <- grepl(c('731b'),entries$text) #|153b
+#entries$orgmangel <- ifelse(entries$orgmangel == TRUE, 1, 0)
+#
+##Datums und Jahresvariable
+#entries$date<-as.Date(entries$date)
+#entries$year <- as.numeric(substring(entries$date,1,4))
+#
+#entries$cat_string <- as.character(entries$categories)
+
+
+
+```
+
+```{r Datensatz um neue Tage ergänzen}
+##################
+#Neue Daten laden#
+##################
+konk_prev_v2 <- readRDS('konk_prev_v2.Rds') #-> Dieser Datensatz kann nicht öffentlich gemacht werden
+
+startdate <- '2020-06-30'
+enddate <- Sys.Date() #Sys.Date()-1
+categories <- c(2,3) #See data frame publikat, Categorie 31 gehört zu den Konkursämtern
+cats <- paste0('&category%5B%5D=',categories, collapse='')
+call1 <- paste0(base_v2,"/publication?from=",startdate,'&to=',enddate,cats,'&inclusive=true&limit=50000')
+entriescall <- GET(call1,
+                   add_headers(`user-key`=user_key))
+entries_zw <- content(entriescall,'text')
+entries_zw <- jsonlite::fromJSON(entries_zw, flatten = TRUE)
+entries <- entries_zw$source
+counter <- as.data.frame(entries_zw$metaInfo)
+
+#Muss null ergeben. Falls nicht API-Abfage aufteilen
+counter$count - counter$totalCount
+
+
+#Firmen mit Organisationsmängel oder mangelndem Domizil rausfiltern 
+entries$orgmangel <- grepl(c('731b'),entries$text) #|153b
+entries$orgmangel <- ifelse(entries$orgmangel == TRUE, 1, 0)
+
+#Datums und Jahresvariable
+entries$date<-as.Date(entries$date)
+entries$year <- as.numeric(substring(entries$date,1,4))
+
+#Publikationskategorien als string
+entries$cat_string <- as.character(entries$categories)
+
+#Test:  keine gleichen IDs
+table(entries$shabId %in% konk_prev_v2$shabId)
+
+#Firmen die schon mal erfasst sind kommen raus
+entries <- entries[!entries$shabId %in% konk_prev_v2$shabId,]
+entries <- entries[!entries$uid %in% konk_prev_v2$uid,]
+
+#Konkurseröffnungen FINMA
+#View(konk_prev_v2[grep('MMC',konk_prev_v2$text),])
+```
+
+```{r Konkursmeldungen}
+konk <- entries %>%
+  filter(grepl('"3"',cat_string))
+  #filter(map_lgl(cat_string, ~'3' %in% .))
+
+#absteigend sortieren
+konk<- konk[order(konk$date, decreasing=F),]
+
+#nur der erste firmenbezogeneeintrag bleibt drin 
+konk<-subset(konk, duplicated(konk$uid)==F) 
+
+#Meldungen: 
+konkmeld <-  konk$shabId
+```
+
+```{r Liquidatonen}
+liq <- entries %>%
+  filter(grepl('"2"',cat_string))%>%
+  #filter(map_lgl(categories, ~'2' %in% .))%>%
+  filter(orgmangel == 1)%>%
+  filter(!shabId %in% konkmeld)
+
+#absteigend sortieren, und ersten Eintrag behalten
+liq<- liq[order(liq$date, decreasing=F),]
+liq<-subset(liq, duplicated(liq$uid)==F) 
+
+```
+
+```{r Abgeleich Konkurse und Liquidationen}
+liq$date_liq <- liq$date
+liq$shabPdfLink_liq <- liq$shabPdfLink
+liq$text_liq <- liq$text
+liq$categories_liq <- liq$categories
+
+#Konkurserföffnunge wegen Orgmangel, nicht als Eröffnung sondern etwas anderes erfasst sind:
+vgl1 <- base::merge(konk,liq[,c('uid','date_liq','text_liq','shabPdfLink_liq','categories_liq')], by=c('uid'),all.x=T, all.y=F)
+
+vgl_falschkonk <- vgl1%>%
+  filter(!is.na(date_liq))%>%
+  filter(date >= date_liq)
+
+#1. Löschen der falsch erfassten Konkurseeröffnungen
+konk <- konk[!konk$shabId %in% vgl_falschkonk$shabId,]
+
+#2. Ergänzen, um die noch nicht erfasste 713b-Eröffnungen
+liq$date_liq <- NULL
+liq$shabPdfLink_liq <- NULL
+liq$text_liq <- NULL
+liq$categories_liq <- NULL
+
+liq_lagged <- vgl1%>%
+  filter(!is.na(date_liq))%>%
+  filter(date < date_liq)
+
+liq <- liq[!liq$shabId %in% liq_lagged$shabId,]
+
+#Meldungen Konkurse
+konk <- rbind(konk,liq)
+
+#Alten Datensatz abspeichern
+#konk$persons <- NULL
+#konk$commercialRegisterNumber <- NULL
+
+#Moneyhouse Branchen
+mh_br_absch <- readxl::read_xlsx('MH-Codes_Bezeichnungen_API.xlsx',sheet ='MH_Abschnitte')
+konk <-  konk %>%
+  left_join(mh_br_absch,by= 'sector.code')
+
+#NOGA Branchen
+noga_buchstaben <- readxl::read_xlsx('noga_absch2_renames.xlsx',sheet ='Sheet1')
+noga_absch <- read.csv('mhouse_sectors_to_noga08_recoded2.csv',encoding = 'UTF-8')%>%
+  rename(Code.MH.neu.recoded = X.U.FEFF.Code.MH.neu.recoded)%>%
+  left_join(noga_buchstaben, by = "noga_abschnitt_long")
+
+konk <- konk %>%
+  left_join(noga_absch, by = c('sector.code' = 'Code.MH.neu.recoded'))
+
+#konk_prev_v2 <- konk
+konk_prev_v2 <- rbind(konk_prev_v2,konk)
+
+table(duplicated(konk_prev_v2$shabId))
+table(duplicated(konk_prev_v2$uid))
+
+konk_prev_v2<- konk_prev_v2[order(konk_prev_v2$date, decreasing=F),]
+konk_prev_v2<- subset(konk_prev_v2, duplicated(konk_prev_v2$uid)==F) 
+
+
+saveRDS(konk_prev_v2, file="konk_prev_v2.Rds")
+
+```
+
+```{r Datensatz speichern,echo=FALSE}
+df_cant <- konk_prev_v2 %>%
+  filter(date>=as.Date('2017-01-01') & !is.na(commercialRegisterCanton))%>%
+  mutate(commercialRegisterCanton = as.factor(commercialRegisterCanton),
+         orgmangel = as.factor(orgmangel))%>%
+  group_by(date,commercialRegisterCanton,orgmangel, .drop=F)%>%
+  summarise(value = n())%>%
+  rename(location = commercialRegisterCanton)%>%
+  mutate(variable_short = ifelse(orgmangel==0,'konk_eroeff','mangel_eroeff'),
+         variable_long = ifelse(orgmangel==0,'Eröffnung erstmaliger Konkursverfahren','Erstmalige Eröffnungen eines Konkursverfahrens wegen organisatorischer Mängel'))
+
+df_ch <- konk_prev_v2 %>%
+  filter(date>=as.Date('2017-01-01'))%>%
+  group_by(date,orgmangel)%>%
+  summarise(value = n())%>%
+  mutate(location = 'CH')%>%
+  mutate(variable_short = ifelse(orgmangel==0,'konk_eroeff','mangel_eroeff'),
+         variable_long = ifelse(orgmangel==0,'Anzahl Eröffnungen erstmaliger Konkursverfahren (exkl. Verfahren nach Art. 731b OR)','Erstmalige Eröffnungen eines Konkursverfahrens wegen organisatorischer Mängel'))
+
+Economy_SHAB <- df_cant%>%
+  filter(variable_short == 'konk_eroeff')%>%
+  mutate(topic = 'Wirtschaft',
+         unit = 'Anzahl',
+         source = 'SHAB via Moneyhouse API',
+         update = 'wöchentlich',
+         public = 'ja',
+         description = 'https://github.com/statistikZH/covid19monitoring_economy_SHAB') %>%
+  select(date,value,topic,variable_short,variable_long,location,unit,source,update,public,description)
+
+#Öffentlich
+write.csv(Economy_SHAB,'economy_SHAB/Economy_SHAB.csv',row.names=F, fileEncoding = "UTF-8")
+```
+
+
+```{r Öffentlicher Datensatz: Branche,echo=FALSE}
+#Branchen und Kantone
+df_cant_br_public <- konk_prev_v2 %>%
+  filter(date>=as.Date('2017-01-01') & !is.na(commercialRegisterCanton) & orgmangel ==0)%>%
+  group_by(date,commercialRegisterCanton,noga_abschnitt_long,noga_abschnitt_letter)%>%
+  summarise(value = n())%>%
+  rename(location = commercialRegisterCanton)%>%
+  mutate(variable_short = paste0('konk_eroeff_noga_',noga_abschnitt_letter),
+         variable_long = paste0('Anzahl Eröffnungen erstmaliger Konkursverfahren (exkl. Verfahren nach Art. 731b OR) in NOGA-Abschnitt'))%>%
+  filter(value>0)%>%
+  ungroup()%>%
+  select(-noga_abschnitt_long,-noga_abschnitt_letter)
+
+write.csv(df_cant_br_public,'Economy_SHAB_branchen.csv',row.names=F, fileEncoding = "UTF-8")
+
+
+
+```
