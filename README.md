@@ -6,9 +6,14 @@ Die Angaben basieren auf einer Auswertung der im Schweizerischen Handelsamtsblat
 Erfasst wird die Anzahl erstmaliger Konkursverfahrenseröffnungen gegen Firmen. Verfahrenseröffnungen aufgrund organisatorischer Mängel einer Firma (Art. 731b OR) werden nicht erfasst, weil diese nicht per se mit Zahlungsschwierigkeiten in Zusammenhang stehen. 
 Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahrenseröffnungen zu verfassen und  kategorisieren sind, wird für die Identifizierung der relevanten Meldungen ein maschinelles, mehrstufiges Filterverfahren eingesetzt, das unter anderem auch auf einer Stichwortsuche basiert. Aufgrund der Unterschiede bei der Datenerhebung kann es zu Abweichungen mit anderen Auswertungen kommen. Der Vorteil dieser Erhebung liegt darin, dass die Daten sehr zeitnah analysiert werden können.
 <br><br>
+## Datensätze
+Economy_SHAB.csv: Konkurseröffnungen pro Kanton. Dies ist der Datensatz für das Gesellschaftsmonitoring - des Statistischen Amtes.
+
+Economy_SHAB_branchen.csv: Konkurseröffnungen pro Kanton und NOGA-Hautpabschnitt. Dies ist der Ausgangsdatensatz für die Visualisierung [hier] (https://www.zh.ch/de/news-uebersicht/mitteilungen/2020/politik-staat/statistik/zeitnahe-daten-zum-konkursgeschehen.html).
 
 ## Methodisches
-* Am 18. Oktober 2020 werden die SHAB-Meldungen über eine neue Version der Moneyhouse-API (V2)  abgerufen. Um eine konsistente Datenreihe zu haben, wurden auch Melduen auch rückwirkend über die neue API bezogen. Weil eine identische Abfrage nicht möglich war, kommt es zu kleinen Abweichungen.
+* Am 18. November 2020 werden die SHAB-Meldungen über eine neue Version der Moneyhouse-API (V2)  abgerufen. Um eine konsistente Datenreihe zu haben, wurden die Meldungen auch rückwirkend über die neue API bezogen. Weil eine identische Abfrage nicht möglich war, kommt es zu kleinen Abweichungen.
+* Die Zuordnung der Firmen zu einem NOGA-Hauptabschnitt basiert auf einer Codierung der Moneyhouse AG, welche auf der NOGA-Systematik aufbaut. 
 * Es wird jeweils nur die erste Eröffnung eines Konkursverfahrens seit 2015 gegen eine Firma erfasst. Dies ist dem Erhebungsverfahren geschuldet.
 * Es kann zu kleinen rückwirkenden Anpassungen der Daten kommen. Etwa wenn es zu nachträglichen Erfassungen in der Datenquelle kommt.
 
