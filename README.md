@@ -20,8 +20,12 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 ## Visualisierung
 Eine Visualisierung und weitere Informationen finden sich [hier](https://www.zh.ch/de/news-uebersicht/mitteilungen/2020/politik-staat/statistik/zeitnahe-daten-zum-konkursgeschehen.html)
 
-## Variablen 
+## Variablen
+### Economy_SHAB.csv
 <strong>konk_eroeff</strong> = Anzahl erstmaliger Konkurseröffnungsverfahren gegen Firmen im jeweiligen Kanton (exkl. Verfahren aufgrund organisatorischer Mängel)
+
+### Economy_SHAB_branchen.csv
+<strong>konk_eroeff_noga_...</strong> = Anzahl erstmaliger Konkurseröffnungsverfahren gegen Firmen im jeweiligen Kanton (exkl. Verfahren aufgrund organisatorischer Mängel) in NOGA-Abschnitt ...
 
 ## Weitere Informationen 
 [Projektseite: "Gesellschafsmonitoring COVID19"](https://github.com/statistikZH/covid19monitoring) <br>
