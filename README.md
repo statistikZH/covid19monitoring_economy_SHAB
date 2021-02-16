@@ -11,6 +11,8 @@ Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahr
 
 <strong>Economy_SHAB_branchen.csv</strong>: Konkurseröffnungen pro Kanton und NOGA-Hautpabschnitt. Dies ist der Ausgangsdatensatz für die Visualisierung [hier](https://www.zh.ch/de/news-uebersicht/mitteilungen/2021/politik-staat/statistik/zeitnahe-daten-zum-konkursgeschehen.html). Um den Datensatz klein zu halten, sind nur Tage mit einer SHAB-Meldung für die entsprechende Kombination von Kanton und Branche enthalten. Nicht im Datensatz aufgeführte Tage haben den Wert 0. 
 
+<strong>Economy_SHAB_inclorgmangel.xlsx</strong>: Konkurseröffnungen pro Kalenderwoche (inkl. Verfahren aufgrund organisatorischer Mängel).
+
 ## Methodisches
 * Am 18. November 2020 werden die SHAB-Meldungen über eine neue Version der Moneyhouse-API (V2)  abgerufen. Um eine konsistente Datenreihe zu haben, wurden die Meldungen auch rückwirkend über die neue API bezogen. Weil eine identische Abfrage nicht möglich war, kommt es zu kleinen Abweichungen.
 * Die Zuordnung der Firmen zu einem NOGA-Hauptabschnitt basiert auf einer Codierung der Moneyhouse AG, welche auf der NOGA-Systematik aufbaut. 
