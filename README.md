@@ -3,7 +3,8 @@
 ## Grundlage 
 Die Angaben basieren auf einer Auswertung der im Schweizerischen Handelsamtsblatt (SHAB) von den kantonalen Handelsregistern publizierten Meldungen. Abgerufen werden die Meldungen via API, die von der Moneyhouse AG betrieben wird. Die Publikation im SHAB erfolgt im Normalfall mehrere Tage nach der Publikation in den kantonalen Handelsregistern. Das Datum bezieht sich auf die Publikation im SHAB.
 
-Erfasst wird die Anzahl erstmaliger Konkursverfahrenseröffnungen gegen Firmen, die im Handelsregister eingetragen sind. Ist eine Einzelfirma (Selbständige) nicht im Handelsregister eingetragen, wird die Konkurseröffnungen nicht erfasst. Verfahrenseröffnungen aufgrund organisatorischer Mängel einer Firma (Art. 731b OR) werden separate in einem Excel-File ausgewiesen, weil diese nicht per se mit Zahlungsschwierigkeiten in Zusammenhang stehen. 
+Erfasst wird die Anzahl erstmaliger Konkursverfahrenseröffnungen gegen Firmen, die im Handelsregister eingetragen sind. Ist eine Einzelfirma (Selbständige) nicht im Handelsregister eingetragen, wird die Konkurseröffnungen nicht erfasst. Verfahrenseröffnungen aufgrund organisatorischer Mängel einer Firma (Art. 731b OR) werden separate in einem Excel-File ausgewiesen
+, weil diese nicht per se mit Zahlungsschwierigkeiten in Zusammenhang stehen. 
 Weil es keinen national gültigen Standard gibt, wie Meldungen zu Konkursverfahrenseröffnungen zu verfassen und  kategorisieren sind, wird für die Identifizierung der relevanten Meldungen ein maschinelles, mehrstufiges Filterverfahren eingesetzt, das unter anderem auch auf einer Stichwortsuche basiert. Aufgrund der Unterschiede bei der Datenerhebung kann es zu Abweichungen mit anderen Auswertungen kommen. Der Vorteil dieser Erhebung liegt darin, dass die Daten sehr zeitnah analysiert werden können.
 <br><br>
 ## Datensätze
