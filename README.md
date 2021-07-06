@@ -1,5 +1,8 @@
 # covid19monitoring_economy_SHAB
 
+## Aktualisierungsintervall
+Monatlich
+
 ## Grundlage 
 Die Angaben basieren auf einer Auswertung der im Schweizerischen Handelsamtsblatt (SHAB) von den kantonalen Handelsregistern publizierten Meldungen. Abgerufen werden die Meldungen via API, die von der Moneyhouse AG betrieben wird. Die Publikation im SHAB erfolgt im Normalfall mehrere Tage nach der Publikation in den kantonalen Handelsregistern. Das Datum bezieht sich auf die Publikation im SHAB.
 
@@ -33,4 +36,3 @@ Eine Visualisierung und weitere Informationen finden sich [hier](https://www.zh.
 ## Weitere Informationen 
 [Projektseite: "Gesellschafsmonitoring COVID19"](https://github.com/statistikZH/covid19monitoring) <br>
 [Datenbezug](https://www.web.statistik.zh.ch/covid19_indikatoren_uebersicht/#/) <br>
-[Visualisierung](https://www.web.statistik.zh.ch/cms_vis/covid19_indikatoren/) <br>
