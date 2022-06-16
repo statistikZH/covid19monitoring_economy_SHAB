@@ -1,7 +1,7 @@
 # covid19monitoring_economy_SHAB
 
-## Aktualisierungsintervall
-Monatlich
+## Daten werden nicht mehr aktualisiert
+Ab Juni 2022 werden die Konkursmeldungen nicht mehr von Moneyhouse bezogen, sondern via ZEFIX API. Die ZEFIX-Daten liegen für den gleichen Zeitraum wie die Moneyhouse-Daten vor und können hier bezogen werden: https://github.com/statistikZH/zefix_konkurse. Zwischen den ZEFIX-Daten und den Moneyhouse-Daten kann es zu Abweichungen kommen.
 
 ## Grundlage 
 Die Angaben basieren auf einer Auswertung der im Schweizerischen Handelsamtsblatt (SHAB) von den kantonalen Handelsregistern publizierten Meldungen. Abgerufen werden die Meldungen via API, die von der Moneyhouse AG betrieben wird. Die Publikation im SHAB erfolgt im Normalfall mehrere Tage nach der Publikation in den kantonalen Handelsregistern. Das Datum bezieht sich auf die Publikation im SHAB.
